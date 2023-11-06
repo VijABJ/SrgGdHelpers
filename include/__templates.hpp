@@ -10,10 +10,20 @@ using grid_t = std::vector<std::vector<int64_t>>;
 
 inline std::string translate(const String s) { 
     return std::string(s.utf8().get_data()); 
-}
+};
 inline String translate(const std::string& s) {
     return String(s.data());
-}
+};
+
+inline Array split(cont String source, const String separator) {
+    Array a = source.split(separator);
+    Array result;
+    for(int i = 0; i < a.size(); i++) {
+        String item = a[i].strip_edges();
+        result.append(item);
+    }
+    return result;
+};
 
 template<typename T>
 inline Array translate(const std::vector<T>& source) {
@@ -30,6 +40,6 @@ inline std::vector<T> translate(const Array source) {
         result.push_back(source[i]);
     }
     return result;
-}
+};
 
 #endif /// __SRG_HELPER_TEMPLATES_HEADER__
