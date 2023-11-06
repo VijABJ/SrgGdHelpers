@@ -25,11 +25,6 @@ using namespace godot;
 protected: \
     static void _bind_methods()
 
-#define DECLARE_PROPERTY(T, VarName, ParamName, VarType, Getter, Setter) \
-    ClassDB::bind_method(D_METHOD(#Getter), &T::Getter); \
-    ClassDB::bind_method(D_METHOD(#Setter, #ParamName), &T::Setter); \
-    ADD_PROPERTY(PropertyInfo(VarType, #VarName), #Setter, #Getter)
-
 #define DECLARE_PROPERTY(T, VarName, ParamName, VarType) \
     ClassDB::bind_method(D_METHOD(STR_(CAT_(get, VarName))), &T::CAT_(get, VarName)); \
     ClassDB::bind_method(D_METHOD(STR_(CAT_(set, VarName)), #ParamName), &T::CAT_(set, VarName)); \
@@ -39,5 +34,18 @@ protected: \
     ClassDB::bind_method(D_METHOD(#Getter), &T::Getter); \
     ADD_PROPERTY(PropertyInfo(VarType, #VarName), "", #Getter)
 
+#define DECLARE_ENUM_PROPERTY(T, VarName, ParamName, EnumNames) \
+    ClassDB::bind_method(D_METHOD(STR_(CAT_(get, VarName))), &T::CAT_(get, VarName)); \
+    ClassDB::bind_method(D_METHOD(STR_(CAT_(set, VarName)), #ParamName), &T::CAT_(set, VarName)); \
+    ADD_PROPERTY(PropertyInfo(Variant::INT, #VarName, PROPERTY_HINT_ENUM, EnumNames), STR_(CAT_(set, VarName)), STR_(CAT_(get, VarName)))
+
+#define DECLARE_ENUM_PROPERTY_READONLY(T, VarName, EnumNames) \
+    ClassDB::bind_method(D_METHOD(STR_(CAT_(get, VarName))), &T::CAT_(get, VarName)); \
+    ADD_PROPERTY(PropertyInfo(Variant::INT, #VarName, PROPERTY_HINT_ENUM, EnumNames), "", STR_(CAT_(get, VarName)))
+
+#define DECLARE_RESOURCE_PROPERTY(T, VarName, ParamName, ResourceClass) \
+    ClassDB::bind_method(D_METHOD(STR_(CAT_(get, VarName))), &T::CAT_(get, VarName)); \
+    ClassDB::bind_method(D_METHOD(STR_(CAT_(set, VarName)), #ParamName), &T::CAT_(set, VarName)); \
+    ADD_PROPERTY(PropertyInfo(Variant::OBJECT, #VarName, PROPERTY_HINT_RESOURCE_TYPE, #ResourceClass), STR_(CAT_(set, VarName)), STR_(CAT_(get, VarName)))
 
 #endif /// __SRG_HELPER_DEFINITIONS_HEADER__
