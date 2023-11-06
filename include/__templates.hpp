@@ -15,12 +15,12 @@ inline String translate(const std::string& s) {
     return String(s.data());
 };
 
-inline Array split(cont String source, const String separator) {
+inline Array split(const String source, const String separator) {
     Array a = source.split(separator);
     Array result;
     for(int i = 0; i < a.size(); i++) {
-        String item = a[i].strip_edges();
-        result.append(item);
+        String item = a[i];
+        result.append(item.strip_edges());
     }
     return result;
 };
