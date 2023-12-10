@@ -3,6 +3,7 @@
 #define __SRG_HELPER_TEMPLATES_HEADER__
 
 #include "__defs.hpp"
+#include <chrono>
 
 #define DEBUG(S) UtilityFunctions::print(S)
 
@@ -34,10 +35,11 @@ inline Array translate(const std::vector<T>& source) {
     return a;
 };
 template<typename T>
-inline std::vector<T> translate(const Array source) {
+inline std::vector<T> translate(Array source) {
     std::vector<T> result;
     for(int i = 0; i < source.size(); i++) {
-        result.push_back(source[i]);
+        T item = static_cast<T>(source[i]);
+        result.push_back(item);
     }
     return result;
 };

@@ -48,4 +48,9 @@ protected: \
     ClassDB::bind_method(D_METHOD(STR_(CAT_(set, VarName)), #ParamName), &T::CAT_(set, VarName)); \
     ADD_PROPERTY(PropertyInfo(Variant::OBJECT, #VarName, PROPERTY_HINT_RESOURCE_TYPE, #ResourceClass), STR_(CAT_(set, VarName)), STR_(CAT_(get, VarName)))
 
+#define DECLARE_OBJECT_PROPERTY(T, VarName, ParamName, ObjectType) \
+    ClassDB::bind_method(D_METHOD(STR_(CAT_(get, VarName))), &T::CAT_(get, VarName)); \
+    ClassDB::bind_method(D_METHOD(STR_(CAT_(set, VarName)), #ParamName), &T::CAT_(set, VarName)); \
+    ADD_PROPERTY(PropertyInfo(Variant::OBJECT, #VarName, PROPERTY_HINT_OBJECT_ID, #ObjectType), STR_(CAT_(set, VarName)), STR_(CAT_(get, VarName)))
+
 #endif /// __SRG_HELPER_DEFINITIONS_HEADER__
