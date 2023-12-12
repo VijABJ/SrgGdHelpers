@@ -44,4 +44,24 @@ inline std::vector<T> translate(Array source) {
     return result;
 };
 
+const std::string WHITESPACE = " \n\r\t";
+
+inline std::string ltrim(const std::string& s)
+{
+    size_t startpos = s.find_first_not_of(WHITESPACE);
+    return (startpos == std::string::npos) ? "" : s.substr(startpos);
+}
+
+inline std::string rtrim(const std::string& s)
+{
+    size_t endpos = s.find_last_not_of(WHITESPACE);
+    return (endpos == std::string::npos) ? "" : s.substr(0, endpos+1);
+}
+
+inline std::string trim(const std::string& s)
+{
+    return rtrim(ltrim(s));
+}
+
+
 #endif /// __SRG_HELPER_TEMPLATES_HEADER__
