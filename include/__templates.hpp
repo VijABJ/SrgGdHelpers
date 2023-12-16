@@ -63,5 +63,34 @@ inline std::string trim(const std::string& s)
     return rtrim(ltrim(s));
 }
 
+#include <queue>
+
+template<typename T,class _Container = std::vector<T>, class _Pr = std::less<typename _Container::value_type>>
+class custom_priority_queue : public std::priority_queue<T, _Container, _Pr>
+{
+public:
+
+    explicit custom_priority_queue(const _Pr& _Pred) : std::priority_queue<T, _Container, _Pr>(_Pred) {
+    }
+
+    bool remove(const T& value) {
+        auto it = std::find(this->c.begin(), this->c.end(), value);
+
+        if (it == this->c.end()) {
+            return false;
+        }
+        if (it == this->c.begin()) {
+            // deque the top element
+            this->pop();
+        }
+        else {
+            // remove element and re-heap
+            this->c.erase(it);
+            std::make_heap(this->c.begin(), this->c.end(), this->comp);
+        }
+        return true;
+    }
+};
+
 
 #endif /// __SRG_HELPER_TEMPLATES_HEADER__
