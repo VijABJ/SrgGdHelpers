@@ -2,8 +2,10 @@
 #ifndef __SRG_HELPER_TEMPLATES_HEADER__
 #define __SRG_HELPER_TEMPLATES_HEADER__
 
-#include "__defs.hpp"
 #include <chrono>
+
+#ifndef NO_GODOT
+#include "__defs.hpp"
 
 #define DEBUG(S) UtilityFunctions::print(S)
 
@@ -43,6 +45,8 @@ inline std::vector<T> translate(Array source) {
     }
     return result;
 };
+
+#endif // NOT_GODOT
 
 const std::string WHITESPACE = " \n\r\t";
 
